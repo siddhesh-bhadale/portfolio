@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { usePrefersReducedMotion, useTheme } from '@/hooks';
-import { cn } from '@/utils/cn';
-import styles from './ConnectionDiagram.module.css';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { usePrefersReducedMotion, useTheme } from "@/hooks";
+import { cn } from "@/utils/cn";
+import styles from "./ConnectionDiagram.module.css";
 
 /* ------------------------------------------------------------------
    The one animated moment on the page.
@@ -16,7 +16,7 @@ import styles from './ConnectionDiagram.module.css';
    of elements animating every frame.
    ------------------------------------------------------------------ */
 
-export type PhaseId = 'discover' | 'relay' | 'punch' | 'direct';
+export type PhaseId = "discover" | "relay" | "punch" | "direct";
 
 interface Phase {
   id: PhaseId;
@@ -24,41 +24,41 @@ interface Phase {
   caption: string;
   duration: number;
   /** Connection state shown below the diagram — no synthetic latency values. */
-  path: '—' | 'Relay' | 'Direct';
+  path: "—" | "Relay" | "Direct";
 }
 
 const PHASES: Phase[] = [
   {
-    id: 'discover',
-    label: 'discover',
+    id: "discover",
+    label: "discover",
     caption:
-      'The client asks a public bootstrap node where the on-premises server is. Nothing on the customer network has been opened.',
+      "The client asks a public bootstrap node where the on-premises server is. Nothing on the customer network has been opened.",
     duration: 1600,
-    path: '—',
+    path: "—",
   },
   {
-    id: 'relay',
-    label: 'relay reserved',
+    id: "relay",
+    label: "relay reserved",
     caption:
-      'A circuit relay carries traffic straight away, so a session is never unreachable — it is just slower than it needs to be.',
+      "A circuit relay carries traffic straight away, so a session is never unreachable — it is just slower than it needs to be.",
     duration: 2900,
-    path: 'Relay',
+    path: "Relay",
   },
   {
-    id: 'punch',
-    label: 'hole punch',
+    id: "punch",
+    label: "hole punch",
     caption:
-      'Both sides fire outbound packets at the same instant. Each one opens a return path in its own NAT for the other.',
+      "Both sides fire outbound packets at the same instant. Each one opens a return path in its own NAT for the other.",
     duration: 1800,
-    path: '—',
+    path: "—",
   },
   {
-    id: 'direct',
-    label: 'direct',
+    id: "direct",
+    label: "direct",
     caption:
-      'Traffic now moves peer to peer. No open port, no public IP, no VPN. On symmetric NAT it stays relayed rather than failing.',
+      "Traffic now moves peer to peer. No open port, no public IP, no VPN. On symmetric NAT it stays relayed rather than failing.",
     duration: 4000,
-    path: 'Direct',
+    path: "Direct",
   },
 ];
 
@@ -80,13 +80,13 @@ function readPalette(): Palette {
     styleMap.getPropertyValue(name).trim() || fallback;
 
   return {
-    ink: read('--ink', '#111a19'),
-    inkSoft: read('--ink-2', '#3c4a47'),
-    inkFaint: read('--ink-3', '#6c7a75'),
-    line: read('--line-strong', '#b0bfb8'),
-    accent: read('--accent', '#0b6b60'),
-    relay: read('--relay', '#99763a'),
-    surface: read('--bg-raised', '#f9fbf9'),
+    ink: read("--ink", "#111a19"),
+    inkSoft: read("--ink-2", "#3c4a47"),
+    inkFaint: read("--ink-3", "#6c7a75"),
+    line: read("--line-strong", "#b0bfb8"),
+    accent: read("--accent", "#0b6b60"),
+    relay: read("--relay", "#99763a"),
+    surface: read("--bg-raised", "#f9fbf9"),
   };
 }
 
@@ -113,7 +113,7 @@ function roundedRect(
   y: number,
   width: number,
   height: number,
-  radius: number
+  radius: number,
 ) {
   ctx.beginPath();
   ctx.moveTo(x + radius, y);
@@ -179,11 +179,11 @@ export function ConnectionDiagram() {
   /* Pause the loop when the diagram is scrolled away. */
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    if (!wrapper || typeof IntersectionObserver === 'undefined') return;
+    if (!wrapper || typeof IntersectionObserver === "undefined") return;
 
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(Boolean(entry?.isIntersecting)),
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(wrapper);
@@ -200,7 +200,7 @@ export function ConnectionDiagram() {
     const wrapper = wrapperRef.current;
     if (!canvas || !wrapper) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     paletteRef.current = readPalette();
@@ -226,7 +226,7 @@ export function ConnectionDiagram() {
       label: string,
       sublabel: string,
       active: boolean,
-      palette: Palette
+      palette: Palette,
     ) => {
       const boxWidth = Math.max(54, Math.min(width * 0.155, 96));
       const boxHeight = 34;
@@ -240,8 +240,8 @@ export function ConnectionDiagram() {
       ctx.strokeStyle = active ? palette.accent : palette.line;
       ctx.stroke();
 
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
       ctx.font = '600 11px "JetBrains Mono", ui-monospace, monospace';
       ctx.fillStyle = active ? palette.ink : palette.inkSoft;
       ctx.fillText(label, centre.x, centre.y);
@@ -255,7 +255,7 @@ export function ConnectionDiagram() {
       position: Point,
       colour: string,
       radius: number,
-      palette: Palette
+      palette: Palette,
     ) => {
       ctx.beginPath();
       ctx.arc(position.x, position.y, radius + 2.5, 0, Math.PI * 2);
@@ -275,7 +275,6 @@ export function ConnectionDiagram() {
         : now - startRef.current;
 
       const { index, progress } = phaseAt(elapsed);
-      const phase = PHASES[index]!;
 
       ctx.clearRect(0, 0, width, height);
 
@@ -294,7 +293,9 @@ export function ConnectionDiagram() {
       const directActive = index === 3;
 
       /* ---- Customer network boundary ------------------------------ */
-      const apertureHalf = directActive ? 16 * easeInOut(Math.min(1, progress * 3)) : 0;
+      const apertureHalf = directActive
+        ? 16 * easeInOut(Math.min(1, progress * 3))
+        : 0;
 
       ctx.save();
       ctx.setLineDash([3, 5]);
@@ -311,17 +312,18 @@ export function ConnectionDiagram() {
 
       ctx.save();
       ctx.translate(boundaryX + 8, height * 0.08);
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
       ctx.font = '400 10px "JetBrains Mono", ui-monospace, monospace';
       ctx.fillStyle = palette.inkFaint;
-      ctx.fillText('customer network', 0, 0);
-      ctx.fillText('no open ports', 0, 13);
+      ctx.fillText("customer network", 0, 0);
+      ctx.fillText("no open ports", 0, 13);
       ctx.restore();
 
       /* ---- Relay path --------------------------------------------- */
       if (relayActive) {
-        const fade = index === 3 ? 1 - easeInOut(Math.min(1, progress * 1.6)) : 1;
+        const fade =
+          index === 3 ? 1 - easeInOut(Math.min(1, progress * 1.6)) : 1;
 
         ctx.save();
         ctx.globalAlpha = 0.25 + 0.55 * fade;
@@ -338,7 +340,7 @@ export function ConnectionDiagram() {
         if (fade > 0.15) {
           const packetCount = 3;
           for (let i = 0; i < packetCount; i += 1) {
-            const t = ((elapsed / 2100 + i / packetCount) % 1 + 1) % 1;
+            const t = (((elapsed / 2100 + i / packetCount) % 1) + 1) % 1;
             const position = pointOnPath(relayPath, t);
             ctx.save();
             ctx.globalAlpha = fade;
@@ -360,7 +362,7 @@ export function ConnectionDiagram() {
         ctx.moveTo(client.x, client.y);
         ctx.lineTo(
           client.x + (relay.x - client.x) * pulse,
-          client.y + (relay.y - client.y) * pulse
+          client.y + (relay.y - client.y) * pulse,
         );
         ctx.stroke();
         ctx.restore();
@@ -398,13 +400,13 @@ export function ConnectionDiagram() {
           { x: client.x + (crossing.x - client.x) * meet, y: client.y },
           palette.accent,
           3.2,
-          palette
+          palette,
         );
         drawPacket(
           { x: server.x - (server.x - crossing.x) * meet, y: server.y },
           palette.accent,
           3.2,
-          palette
+          palette,
         );
 
         if (t > 0.78) {
@@ -427,7 +429,7 @@ export function ConnectionDiagram() {
         ctx.save();
         ctx.lineWidth = 1.8;
         ctx.strokeStyle = palette.accent;
-        ctx.lineCap = 'round';
+        ctx.lineCap = "round";
         ctx.beginPath();
         ctx.moveTo(client.x, client.y);
         ctx.lineTo(client.x + (server.x - client.x) * draw, client.y);
@@ -437,8 +439,13 @@ export function ConnectionDiagram() {
         if (draw > 0.9) {
           const packetCount = 4;
           for (let i = 0; i < packetCount; i += 1) {
-            const t = ((elapsed / 900 + i / packetCount) % 1 + 1) % 1;
-            drawPacket(pointOnPath(directPath, t), palette.accent, 3.2, palette);
+            const t = (((elapsed / 900 + i / packetCount) % 1) + 1) % 1;
+            drawPacket(
+              pointOnPath(directPath, t),
+              palette.accent,
+              3.2,
+              palette,
+            );
           }
         }
 
@@ -457,13 +464,12 @@ export function ConnectionDiagram() {
       }
 
       /* ---- Nodes --------------------------------------------------- */
-      drawNode(relay, 'relay', 'public', relayActive && !directActive, palette);
-      drawNode(client, 'client', 'mobile / desktop', true, palette);
-      drawNode(server, 'server', 'on-premises', true, palette);
+      drawNode(relay, "relay", "public", relayActive && !directActive, palette);
+      drawNode(client, "client", "mobile / desktop", true, palette);
+      drawNode(server, "server", "on-premises", true, palette);
 
       /* ---- Readout ------------------------------------------------- */
       setPhaseIndex((current) => (current === index ? current : index));
-
 
       if (!prefersReducedMotion) {
         frame = requestAnimationFrame(render);
@@ -512,7 +518,7 @@ export function ConnectionDiagram() {
                 className={cn(
                   styles.phase,
                   index === phaseIndex && styles.phaseActive,
-                  index < phaseIndex && styles.phaseDone
+                  index < phaseIndex && styles.phaseDone,
                 )}
               >
                 {item.label}
