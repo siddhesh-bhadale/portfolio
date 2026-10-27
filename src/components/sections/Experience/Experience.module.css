@@ -1,0 +1,118 @@
+.timeline {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.entry {
+  position: relative;
+}
+
+.entryInner {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* ---- Meta column -------------------------------------------------------- */
+
+.meta {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+}
+
+.company {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+}
+
+.location {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+/* ---- Content ------------------------------------------------------------- */
+
+.content {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.role {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink);
+}
+
+.titleNote {
+  margin-top: calc(var(--space-3) * -1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--ink-3);
+  max-width: 58ch;
+}
+
+.summary {
+  max-width: var(--prose-max);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-2);
+}
+
+.highlights {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--prose-max);
+}
+
+.highlight {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-2);
+}
+
+.highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 10px;
+  height: 1px;
+  background: var(--line-strong);
+  transition: background-color var(--duration-base) var(--ease-out),
+    width var(--duration-base) var(--ease-out);
+}
+
+.highlight:hover::before {
+  width: 14px;
+  background: var(--accent);
+}
+
+/* ---- Breakpoints --------------------------------------------------------- */
+
+@media (min-width: 52rem) {
+  .entryInner {
+    grid-template-columns: minmax(10rem, 0.32fr) minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .meta {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-5));
+  }
+}

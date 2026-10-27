@@ -1,0 +1,54 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+}
+
+.track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 3.5rem;
+  height: 1.75rem;
+  padding: 0 0.1875rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg-raised);
+  transition: border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.toggle:hover .track {
+  border-color: var(--line-strong);
+}
+
+.thumb {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1.3125rem;
+  height: 1.3125rem;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.thumb[data-dark='true'] {
+  transform: translateX(1.6875rem);
+}
+
+.icon {
+  position: relative;
+  width: 0.875rem;
+  height: 0.875rem;
+  justify-self: center;
+  color: var(--ink-3);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+/* The icon sitting under the thumb inverts so it stays legible. */
+.toggle[aria-checked='false'] .icon:first-of-type,
+.toggle[aria-checked='true'] .icon:last-of-type {
+  color: var(--accent-contrast);
+}

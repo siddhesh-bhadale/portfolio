@@ -1,0 +1,43 @@
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.04em;
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+  /* Stops the layout twitching while digits change width. */
+  font-variant-numeric: tabular-nums;
+}
+
+.number {
+  font-variant-numeric: tabular-nums;
+}
+
+.affix {
+  color: var(--accent);
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+  line-height: var(--leading-snug);
+}
+
+.note {
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--ink-3);
+  max-width: 34ch;
+}

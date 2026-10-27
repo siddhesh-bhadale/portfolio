@@ -1,0 +1,27 @@
+.section {
+  padding-block: var(--space-10);
+}
+
+.divided {
+  /* No border here: SectionHeading carries the rule so it aligns with content. */
+  padding-block-start: var(--space-9);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 64rem) {
+  .inner {
+    padding-inline-start: calc(var(--gutter) + var(--rail-width));
+  }
+}
+
+@media (max-width: 48rem) {
+  .section {
+    padding-block: var(--space-8);
+  }
+}

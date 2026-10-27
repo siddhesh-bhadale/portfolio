@@ -1,0 +1,262 @@
+.projects {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* ---- Project shell ---------------------------------------------------- */
+
+.project {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--bg-raised);
+  transition: border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.project:hover {
+  border-color: var(--line-strong);
+}
+
+.projectOpen {
+  border-color: var(--accent-line);
+  box-shadow: var(--shadow-raised);
+}
+
+.projectHeading {
+  margin: 0;
+}
+
+/* ---- Trigger ----------------------------------------------------------- */
+
+.trigger {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-5);
+  text-align: left;
+}
+
+.triggerText {
+  display: grid;
+  gap: var(--space-2);
+  grid-column: 1;
+}
+
+.projectName {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.trigger:hover .projectName {
+  color: var(--accent);
+}
+
+.projectTagline {
+  max-width: 54ch;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--ink-2);
+}
+
+.triggerMeta {
+  grid-column: 1;
+  margin-top: var(--space-1);
+}
+
+.metaLine {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  line-height: 1.7;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.chevron {
+  display: grid;
+  place-items: center;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--ink-3);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: transform var(--duration-base) var(--ease-spring),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.chevron svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.projectOpen .chevron {
+  transform: rotate(180deg);
+  color: var(--accent);
+  border-color: var(--accent-line);
+}
+
+/* ---- Panel -------------------------------------------------------------- */
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-slow) var(--ease-out);
+}
+
+.projectOpen .panel {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.projectOpen .panelInner {
+  opacity: 1;
+  transition-delay: 120ms;
+}
+
+.panelGrid {
+  display: grid;
+  gap: var(--space-6);
+  padding: 0 var(--space-5) var(--space-6);
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-5);
+  margin-top: var(--space-1);
+}
+
+.panelMain {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.block {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.blockTitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  color: var(--ink-3);
+}
+
+.prose {
+  max-width: var(--prose-max);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-2);
+}
+
+.bulletList {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--prose-max);
+}
+
+.bullet {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-2);
+}
+
+/* A short rule instead of a bullet: quieter, and it lines up with the type. */
+.bullet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 10px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ---- Aside --------------------------------------------------------------- */
+
+.panelAside {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+}
+
+.metrics {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.metric {
+  display: grid;
+  gap: var(--space-1);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line);
+}
+
+.metricLabel {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.metricValue {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.links {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent-line);
+}
+
+/* ---- Breakpoints ---------------------------------------------------------- */
+
+@media (min-width: 48rem) {
+  .trigger {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    padding: var(--space-5) var(--space-6);
+  }
+
+  .triggerMeta {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .chevron {
+    grid-column: 3;
+  }
+
+  .panelGrid {
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    padding-inline: var(--space-6);
+  }
+}

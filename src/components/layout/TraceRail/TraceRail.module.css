@@ -1,0 +1,92 @@
+.rail {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .rail {
+    position: fixed;
+    top: 50%;
+    left: max(1.25rem, calc((100vw - var(--page-max)) / 2 + 1.25rem));
+    z-index: var(--z-rail);
+    display: block;
+    transform: translateY(-50%);
+  }
+}
+
+.track {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 3.5px;
+  width: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: top;
+  transition: transform 120ms linear;
+}
+
+.nodes {
+  position: relative;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: fit-content;
+}
+
+.dot {
+  position: relative;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  transition: border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-spring);
+}
+
+.node:hover .dot {
+  border-color: var(--accent);
+}
+
+.nodeActive .dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.35);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  white-space: nowrap;
+  color: var(--ink-3);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.node:hover .label,
+.node:focus-visible .label,
+.nodeActive .label {
+  opacity: 1;
+  transform: none;
+}
+
+.nodeActive .label {
+  color: var(--ink);
+}

@@ -1,0 +1,119 @@
+.footer {
+  margin-top: var(--space-9);
+  padding-block: var(--space-8) var(--space-7);
+  border-top: 1px solid var(--line);
+  background: var(--bg-sunken);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-7);
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.heading {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  color: var(--ink-3);
+}
+
+.educationItem {
+  margin-bottom: var(--space-3);
+}
+
+.qualification {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+}
+
+.institution {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.period,
+.languages {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.links {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.link {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  border-bottom: 1px solid transparent;
+  transition: color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent-line);
+}
+
+.colophon {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.backToTop {
+  justify-self: start;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line-strong);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.backToTop:hover {
+  color: var(--accent);
+}
+
+.note {
+  max-width: 48ch;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.copyright {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+@media (min-width: 52rem) {
+  .inner {
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: var(--space-8);
+  }
+
+  .colophon {
+    padding-top: 0;
+    border-top: 0;
+    justify-items: end;
+    text-align: right;
+  }
+
+  .backToTop {
+    justify-self: end;
+  }
+}
+
+@media (min-width: 64rem) {
+  .inner {
+    padding-inline-start: calc(var(--gutter) + var(--rail-width));
+  }
+}

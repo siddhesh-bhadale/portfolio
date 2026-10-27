@@ -1,0 +1,62 @@
+.layout {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.prose {
+  display: grid;
+  gap: var(--space-5);
+  max-width: var(--prose-max);
+}
+
+.paragraph {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--ink-2);
+}
+
+/* The opening paragraph carries slightly more weight than the rest. */
+.prose > :first-child .paragraph {
+  color: var(--ink);
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--bg-raised);
+}
+
+.fact {
+  display: grid;
+  gap: var(--space-1);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.fact:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.factLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--ink-3);
+}
+
+.factValue {
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+
+@media (min-width: 58rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+}
